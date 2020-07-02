@@ -3,11 +3,13 @@
 Apr  4 2018
 19:30:32
 C:/Users/Administrator/Desktop/RV-052B/RISCV-Code/RV052B/RV052B.sim/sim_1/behav/xsim/glbl.v,1522801934,verilog,,,,glbl,,,,,,,,
+C:/Users/Administrator/Desktop/RV-052B/RISCV-Code/RV052B/RV052B.srcs/sources_1/ip/DATA_BRAM/sim/DATA_BRAM.v,1593656661,verilog,,C:/Users/Administrator/Desktop/RV-052B/RISCV-Code/RV052B/rvcode/DATA_RAM.v,,DATA_BRAM,,,,,,,,
 C:/Users/Administrator/Desktop/RV-052B/RISCV-Code/RV052B/RV052B.srcs/sources_1/ip/addsub_no_u/sim/addsub_no_u.vhd,1593396736,vhdl,,,,addsub_no_u,,,,,,,,
 C:/Users/Administrator/Desktop/RV-052B/RISCV-Code/RV052B/RV052B.srcs/sources_1/ip/cmp_signed/sim/cmp_signed.vhd,1593431596,vhdl,,,,cmp_signed,,,,,,,,
 C:/Users/Administrator/Desktop/RV-052B/RISCV-Code/RV052B/RV052B.srcs/sources_1/ip/cmp_u/sim/cmp_u.vhd,1593443651,vhdl,,,,cmp_u,,,,,,,,
 C:/Users/Administrator/Desktop/RV-052B/RISCV-Code/RV052B/rvcode/ADD_SUB.v,1593439703,verilog,,C:/Users/Administrator/Desktop/RV-052B/RISCV-Code/RV052B/rvcode/top.v,,ADD_SUB,,,,,,,,
 C:/Users/Administrator/Desktop/RV-052B/RISCV-Code/RV052B/rvcode/CMP_CMPU.v,1593443225,verilog,,C:/Users/Administrator/Desktop/RV-052B/RISCV-Code/RV052B/rvcode/cmp_u_part.v,,CMP_CMPU,,,,,,,,
+C:/Users/Administrator/Desktop/RV-052B/RISCV-Code/RV052B/rvcode/DATA_RAM.v,1593658849,verilog,,C:/Users/Administrator/Desktop/RV-052B/RISCV-Code/RV052B/rvcode/top.v,,DATA_RAM,,,,,,,,
 C:/Users/Administrator/Desktop/RV-052B/RISCV-Code/RV052B/rvcode/LOGIC.v,1593484194,verilog,,C:/Users/Administrator/Desktop/RV-052B/RISCV-Code/RV052B/rvcode/top.v,,LOGIC,,,,,,,,
 C:/Users/Administrator/Desktop/RV-052B/RISCV-Code/RV052B/rvcode/cmp_u_part.v,1593444265,verilog,,C:/Users/Administrator/Desktop/RV-052B/RISCV-Code/RV052B/rvcode/top.v,,CMP_U_PART,,,,,,,,
-C:/Users/Administrator/Desktop/RV-052B/RISCV-Code/RV052B/rvcode/top.v,1593484556,verilog,,,,top,,,,,,,,
+C:/Users/Administrator/Desktop/RV-052B/RISCV-Code/RV052B/rvcode/top.v,1593660633,verilog,,,,top,,,,,,,,

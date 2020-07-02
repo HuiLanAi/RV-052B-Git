@@ -1,6 +1,7 @@
 # compile verilog/system verilog design source files
 verilog xil_defaultlib  \
-"../../../../rvcode/LOGIC.v" \
+"../../../../RV052B.srcs/sources_1/ip/DATA_BRAM/sim/DATA_BRAM.v" \
+"../../../../rvcode/DATA_RAM.v" \
 "../../../../rvcode/top.v" \
 
 # compile glbl module

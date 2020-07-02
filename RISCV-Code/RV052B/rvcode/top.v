@@ -34,16 +34,18 @@ reg		[1:0]			op_mode1;
 reg		[2:0]			op_mode2;
 wire					done;
 wire	[31:0]			res;
+reg		[31:0]			imm_data;
 /*  */
 
 initial begin
 	/*  */
-	op1 <= 32'haaaa_aaaa;
+	op1 <= 32'h0000_0000;
 	op2 <= 32'hffff_ffff;
+	imm_data <= 32'h0000_0001;
 	use_part <= 'b01;
-	op_mode1 <= 'b01;
-	op_mode2 <= 'b000;
-	en = 1;
+	op_mode1 <= 'b00;
+	op_mode2 <= 'b010;
+	en = 0;
 	/*  */
 	rst <= 1'b1;
 	clk <= 1'b0;
@@ -52,15 +54,19 @@ initial begin
 	en <= 'd1;
 	#2;
 	// use_part <= 'b10;
-	en <= 'd1;
-	op_mode2 <= 'b100;
+	// en <= 'd1;
+	// op_mode2 <= 'b100;
 	// op1 <= 'd20;
-	#2;
 	en <= 'd0;
+	#2;
 	// use_part <= 'b01;
 	// op2 <= 'd30;
 	// #2;
 	// en <= 'd0;
+	en <= 'd0;
+	#2;
+	en <= 'd1;
+	op_mode2 <= 'b100;
 	
 end
 
@@ -73,12 +79,13 @@ end
 
 
 
-LOGIC logic(
+DATA_RAM ram(
 	.clk(clk),
 	.rst(rst),
 	.op1(op1),
 	.op2(op2),
 	.start(en),
+	.imm_data(imm_data),
 	.use_part(use_part),
 	.op_mode1(op_mode1),
 	.op_mode2(op_mode2),

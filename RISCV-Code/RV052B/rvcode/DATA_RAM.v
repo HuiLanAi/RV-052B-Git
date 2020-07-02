@@ -73,7 +73,7 @@ DATA_BRAM data_bram(
 
 
 
-/* set initial controling signal */
+/* set initial controling signal and operating addr */
 always @ (posedge clk) begin
     if(!rst) begin
         if(load_cnt == 'd0 || store_cnt == 'd0) begin
@@ -87,15 +87,29 @@ always @ (posedge clk) begin
             // load data 
             'b00: begin
                 wea <= 'd0;
-                ram_en <= 'd1;
                 addr <= op1 + imm_data;
+
+                if(load_cnt == 'd0) begin
+                    ram_en <= 'd0;
+                end
+                else begin
+                    ram_en <= 'd1;
+                end
             end     
 
             // store data
             'b01: begin
-                wea <= 'd1;
                 ram_en <= 'd1;
                 addr <= op1 + imm_data;
+
+                if(load_cnt == 'd0) begin
+                    ram_en <= 'd0;
+                    wea <= 'd0;
+                end
+                else begin
+                    ram_en <= 'd1;
+                    wea <= 'd1;
+                end
             end
 
             default: begin
@@ -127,9 +141,86 @@ end
 
 
 
-/* set loading operation clk and output data choose */
+/* set loading operation clk, done signal and output data choose */
 always @ (posedge clk) begin
-    
+    if(!rst) begin
+        if(ram_en) begin
+            if(load_cnt == 'd0) begin
+                load_cnt <= 'd1;
+            end
+            else begin
+                load_cnt <= 'd0;
+            end
+        end
+        else begin
+            load_cnt <= 'd1;
+        end
+    end
+
+    else begin
+        load_cnt <= 'd1;        
+    end
+end
+
+always @ (posedge clk) begin
+    if(!rst) begin
+        if(load_cnt == 'd0 || store_cnt == 'd0) begin
+            done <= 'd1;
+        end
+        else begin
+            done <= 'd0;
+        end
+    end
+
+    else begin
+        done <= 'd0;  
+    end
+end
+
+always @ (*) begin
+    if(!rst) begin
+        if(done) begin
+            case (op_mode2)
+
+            // read byte
+            'b000: begin
+                res = {{24{dout[7]}}, dout[7:0]};
+            end
+
+            // read half word
+            'b010: begin
+                res = {{16{dout[15]}}, dout[15:0]};
+            end
+
+            // read word
+            'b100: begin
+                res = dout;
+            end
+
+            // read byte unsigned
+            'b001: begin
+                res = {24'b0, dout[7:0]};
+            end
+
+            // read half word unsigned
+            'b011: begin
+                res = {16'b0, dout[15:0]};
+            end
+
+            default: begin
+                res = res;
+            end
+
+            endcase
+        end
+        else begin
+            res = res;
+        end
+    end
+
+    else begin
+        res = 'd0;
+    end
 end
 
 
