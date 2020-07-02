@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2018.1 (64-bit)
+# SW Build 2188600 on Wed Apr  4 18:40:38 MDT 2018
+# IP Build 2185939 on Wed Apr  4 20:55:05 MDT 2018
+# Start of session at: Tue Jun 30 10:56:34 2020
+# Process ID: 1224
+# Current directory: C:/Users/Administrator/Desktop/RV-052B/RISCV-Code/RV052B/RV052B.runs/DATA_BRAM_synth_1
+# Command line: vivado.exe -log DATA_BRAM.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source DATA_BRAM.tcl
+# Log file: C:/Users/Administrator/Desktop/RV-052B/RISCV-Code/RV052B/RV052B.runs/DATA_BRAM_synth_1/DATA_BRAM.vds
+# Journal file: C:/Users/Administrator/Desktop/RV-052B/RISCV-Code/RV052B/RV052B.runs/DATA_BRAM_synth_1\vivado.jou
+#-----------------------------------------------------------
+source DATA_BRAM.tcl -notrace

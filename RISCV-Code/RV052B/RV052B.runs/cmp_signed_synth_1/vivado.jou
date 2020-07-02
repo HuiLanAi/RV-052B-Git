@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2018.1 (64-bit)
+# SW Build 2188600 on Wed Apr  4 18:40:38 MDT 2018
+# IP Build 2185939 on Wed Apr  4 20:55:05 MDT 2018
+# Start of session at: Mon Jun 29 19:53:20 2020
+# Process ID: 6360
+# Current directory: C:/Users/Administrator/Desktop/RV-052B/RISCV-Code/RV052B/RV052B.runs/cmp_signed_synth_1
+# Command line: vivado.exe -log cmp_signed.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source cmp_signed.tcl
+# Log file: C:/Users/Administrator/Desktop/RV-052B/RISCV-Code/RV052B/RV052B.runs/cmp_signed_synth_1/cmp_signed.vds
+# Journal file: C:/Users/Administrator/Desktop/RV-052B/RISCV-Code/RV052B/RV052B.runs/cmp_signed_synth_1\vivado.jou
+#-----------------------------------------------------------
+source cmp_signed.tcl -notrace

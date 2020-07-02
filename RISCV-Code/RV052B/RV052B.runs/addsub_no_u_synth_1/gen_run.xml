@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenRun Id="addsub_no_u_synth_1" LaunchPart="xcku115-flva2104-3-e" LaunchTime="1593396737">
+  <File Type="PA-TCL" Name="addsub_no_u.tcl"/>
+  <File Type="REPORTS-TCL" Name="addsub_no_u_reports.tcl"/>
+  <File Type="RDS-RDS" Name="addsub_no_u.vds"/>
+  <File Type="RDS-UTIL" Name="addsub_no_u_utilization_synth.rpt"/>
+  <File Type="RDS-UTIL-PB" Name="addsub_no_u_utilization_synth.pb"/>
+  <File Type="RDS-DCP" Name="addsub_no_u.dcp"/>
+  <FileSet Name="sources" Type="BlockSrcs" RelSrcDir="$PSRCDIR/addsub_no_u">
+    <File Path="$PSRCDIR/sources_1/ip/addsub_no_u/addsub_no_u.xci">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="TopModule" Val="addsub_no_u"/>
+      <Option Name="UseBlackboxStub" Val="1"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="constrs_in" Type="BlockSrcs" RelSrcDir="$PSRCDIR/addsub_no_u">
+    <File Path="$PSRCDIR/sources_1/ip/addsub_no_u/addsub_no_u.xci">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="TopModule" Val="addsub_no_u"/>
+      <Option Name="UseBlackboxStub" Val="1"/>
+    </Config>
+  </FileSet>
+  <Strategy Version="1" Minor="2">
+    <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2018"/>
+    <Step Id="synth_design"/>
+  </Strategy>
+</GenRun>

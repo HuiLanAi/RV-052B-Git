@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenRun Id="DATA_BRAM_synth_1" LaunchPart="xcku115-flva2104-3-e" LaunchTime="1593485790">
+  <File Type="PA-TCL" Name="DATA_BRAM.tcl"/>
+  <File Type="RDS-PROPCONSTRS" Name="DATA_BRAM_drc_synth.rpt"/>
+  <File Type="REPORTS-TCL" Name="DATA_BRAM_reports.tcl"/>
+  <File Type="RDS-RDS" Name="DATA_BRAM.vds"/>
+  <File Type="RDS-UTIL" Name="DATA_BRAM_utilization_synth.rpt"/>
+  <File Type="RDS-UTIL-PB" Name="DATA_BRAM_utilization_synth.pb"/>
+  <File Type="RDS-DCP" Name="DATA_BRAM.dcp"/>
+  <File Type="VDS-TIMINGSUMMARY" Name="DATA_BRAM_timing_summary_synth.rpt"/>
+  <File Type="VDS-TIMING-PB" Name="DATA_BRAM_timing_summary_synth.pb"/>
+  <FileSet Name="sources" Type="BlockSrcs" RelSrcDir="$PSRCDIR/DATA_BRAM">
+    <File Path="$PSRCDIR/sources_1/ip/DATA_BRAM/DATA_BRAM.xci">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="TopModule" Val="DATA_BRAM"/>
+      <Option Name="UseBlackboxStub" Val="1"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="constrs_in" Type="BlockSrcs" RelSrcDir="$PSRCDIR/DATA_BRAM">
+    <File Path="$PSRCDIR/sources_1/ip/DATA_BRAM/DATA_BRAM.xci">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="TopModule" Val="DATA_BRAM"/>
+      <Option Name="UseBlackboxStub" Val="1"/>
+    </Config>
+  </FileSet>
+  <Strategy Version="1" Minor="2">
+    <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2018">
+      <Desc>Vivado Synthesis Defaults</Desc>
+    </StratHandle>
+    <Step Id="synth_design"/>
+  </Strategy>
+</GenRun>

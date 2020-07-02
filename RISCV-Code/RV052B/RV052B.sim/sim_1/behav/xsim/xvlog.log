@@ -1,0 +1,4 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/Administrator/Desktop/RV-052B/RISCV-Code/RV052B/rvcode/LOGIC.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module LOGIC
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/Administrator/Desktop/RV-052B/RISCV-Code/RV052B/rvcode/top.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module top

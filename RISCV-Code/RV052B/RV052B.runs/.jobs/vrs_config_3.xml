@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<Runs Version="1" Minor="0">
+	<Run Id="cmp_u_synth_1" LaunchDir="C:/Users/Administrator/Desktop/RV-052B/RISCV-Code/RV052B/RV052B.runs/cmp_u_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+</Runs>
+
