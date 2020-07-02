@@ -102,7 +102,7 @@ always @ (posedge clk) begin
                 ram_en <= 'd1;
                 addr <= op1 + imm_data;
 
-                if(load_cnt == 'd0) begin
+                if(store_cnt == 'd0) begin
                     ram_en <= 'd0;
                     wea <= 'd0;
                 end
@@ -224,6 +224,52 @@ always @ (*) begin
 end
 
 
+
+
+
+/* set storing operation clk, done signal and input data choose */
+always @ (posedge clk) begin
+    if(!rst) begin
+        if(ram_en && wea) begin
+            case (op_mode2)
+            // store byte
+            'b000: begin
+                if(ram_en) begin
+                    if(store_cnt == 'd5) begin
+                        store_cnt <= 'd1;
+                    end
+                    else begin
+                        store_cnt <= store_cnt - 'd1;
+                    end
+                end
+                else begin
+                    store_cnt <= 'd5;
+                end
+            end
+
+            // store half word
+            'b010: begin
+                
+            end
+
+            // store word
+            'b100: begin
+                
+            end
+
+            endcase
+        
+        end
+
+        else begin
+
+        end
+    end
+
+    else begin
+        store_cnt <= 'd5;        
+    end
+end
 
 
 endmodule
