@@ -41,7 +41,7 @@ initial begin
 	/*  */
 	op1 <= 32'h0000_0000;
 	op2 <= 32'hffff_ffff;
-	imm_data <= 32'h0000_0001;
+	imm_data <= 32'h0000_0003;
 	use_part <= 'b01;
 	op_mode1 <= 'b00;
 	op_mode2 <= 'b010;
@@ -64,10 +64,14 @@ initial begin
 	// #2;
 	// en <= 'd0;
 	en <= 'd0;
+	#4;
+	// en <= 'd1;
+	// op_mode2 <= 'b100;
 	#2;
 	en <= 'd1;
 	op_mode2 <= 'b100;
-	
+	#2;
+	en <= 'd0;
 end
 
 
