@@ -52,6 +52,26 @@ always @ (posedge clk) begin
 				res <= op1 << op2;
 			end
 
+			// SRL
+			else if (op_mode1 == 'd0 && op_mode2 == 'b010) begin
+				res <= op1 >> op2;
+			end
+
+			// SLLI
+			else if (op_mode1 == 'b10 && op_mode2 == 'b000) begin
+				res <= op1 << op2;
+			end
+
+			// SRLI
+			else if (op_mode1 == 'b10 && op_mode2 == 'b010) begin
+				res <= op1 >> op2;
+			end
+
+			// SRA
+			else if (op_mode1 == 'b00 && op_mode2 == 'b100) begin
+				res <= {op1[31]} op1 << op2;
+			end
+
 		end
 
 		else begin
