@@ -17,20 +17,20 @@
 ***************************************************************************************************/
 `timescale 1ns/100ps
 
-module LOGIC(
+module DATA_RAM(
     input                               clk,
     input                               rst,
 
-    // two operation number
+    // op1 <- rs1
+	// op2 represents shift amounts, occupy lowest 5 bit of op2
     input       [31:0]                  op1,
     input       [31:0]                  op2,
 
     // give one clk postive signal, then start this module
     input                               start,
 
-    // choose which compute part to use, there is only one part in this module
-    // this module can provide logic computation next clk
-    // no there is no need to set two compute parts
+    // all operation is done in one clk
+	// so there only need one shift part in this module
     input       [1:0]                   use_part,
 
     input       [1:0]                   op_mode1,
@@ -40,6 +40,31 @@ module LOGIC(
     output      reg     [31:0]                  res
 
 );
+
+
+always @ (posedge clk) begin
+	if(!rst) begin
+		if(start) begin
+			done <= 'd1;
+			
+			// SLL
+			if(op_mode1 == 'd0 && op_mode2 == 'd0) begin
+				res <= op1 << op2;
+			end
+
+		end
+
+		else begin
+			done <= 'd0;
+			res <= 'd0;
+		end
+	end
+
+	else begin
+		done <= 'd0;
+		res <= 'd0;
+	end
+end
 
 
 
