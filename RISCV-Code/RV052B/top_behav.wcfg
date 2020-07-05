@@ -12,14 +12,14 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="34285166fs"></ZoomEndTime>
-      <Cursor1Time time="11000000fs"></Cursor1Time>
+      <ZoomEndTime time="39054547fs"></ZoomEndTime>
+      <Cursor1Time time="23100000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="180"></NameColumnWidth>
-      <ValueColumnWidth column_width="107"></ValueColumnWidth>
+      <ValueColumnWidth column_width="75"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="20" />
+   <WVObjectSize size="23" />
    <wvobject fp_name="/top/clk" type="logic">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -66,10 +66,6 @@
       <obj_property name="ElementShortName">wea</obj_property>
       <obj_property name="ObjectShortName">wea</obj_property>
    </wvobject>
-   <wvobject fp_name="/top/ram/load_cnt" type="array">
-      <obj_property name="ElementShortName">load_cnt[3:0]</obj_property>
-      <obj_property name="ObjectShortName">load_cnt[3:0]</obj_property>
-   </wvobject>
    <wvobject fp_name="/top/op_mode2" type="array">
       <obj_property name="ElementShortName">op_mode2[2:0]</obj_property>
       <obj_property name="ObjectShortName">op_mode2[2:0]</obj_property>
@@ -83,9 +79,14 @@
       <obj_property name="ObjectShortName">addra[9:0]</obj_property>
       <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
+   <wvobject fp_name="/top/ram/instant_addr" type="array">
+      <obj_property name="ElementShortName">instant_addr[9:0]</obj_property>
+      <obj_property name="ObjectShortName">instant_addr[9:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
    <wvobject fp_name="/top/ram/half_word_extra" type="array">
-      <obj_property name="ElementShortName">half_word_extra[1:0]</obj_property>
-      <obj_property name="ObjectShortName">half_word_extra[1:0]</obj_property>
+      <obj_property name="ElementShortName">half_word_extra[2:0]</obj_property>
+      <obj_property name="ObjectShortName">half_word_extra[2:0]</obj_property>
    </wvobject>
    <wvobject fp_name="/top/ram/dout_f" type="array">
       <obj_property name="ElementShortName">dout_f[31:0]</obj_property>
@@ -102,5 +103,18 @@
    <wvobject fp_name="/top/done" type="logic">
       <obj_property name="ElementShortName">done</obj_property>
       <obj_property name="ObjectShortName">done</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top/ram/load_cnt" type="array">
+      <obj_property name="ElementShortName">load_cnt[3:0]</obj_property>
+      <obj_property name="ObjectShortName">load_cnt[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top/ram/store_cnt" type="array">
+      <obj_property name="ElementShortName">store_cnt[3:0]</obj_property>
+      <obj_property name="ObjectShortName">store_cnt[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top/ram/din" type="array">
+      <obj_property name="ElementShortName">din[7:0]</obj_property>
+      <obj_property name="ObjectShortName">din[7:0]</obj_property>
    </wvobject>
 </wave_config>

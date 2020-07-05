@@ -2,8 +2,8 @@
 # Webtalk v2018.1 (64-bit)
 # SW Build 2188600 on Wed Apr  4 18:40:38 MDT 2018
 # IP Build 2185939 on Wed Apr  4 20:55:05 MDT 2018
-# Start of session at: Fri Jul  3 10:45:54 2020
-# Process ID: 1020
+# Start of session at: Sun Jul  5 14:57:24 2020
+# Process ID: 14772
 # Current directory: C:/Users/Administrator/Desktop/RV-052B/RISCV-Code/RV052B/RV052B.sim/sim_1/behav/xsim
 # Command line: wbtcv.exe -mode batch -source C:/Users/Administrator/Desktop/RV-052B/RISCV-Code/RV052B/RV052B.sim/sim_1/behav/xsim/xsim.dir/top_behav/webtalk/xsim_webtalk.tcl -notrace
 # Log file: C:/Users/Administrator/Desktop/RV-052B/RISCV-Code/RV052B/RV052B.sim/sim_1/behav/xsim/webtalk.log

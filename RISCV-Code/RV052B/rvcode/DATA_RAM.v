@@ -46,17 +46,19 @@ module DATA_RAM(
 reg         [9:0]                       addr;
 reg         [9:0]                       raddr;
 reg         [9:0]                       waddr;
+reg         [9:0]                       instant_addr;
 
 // when loading half word, sometimes need accessing memory two times
-reg         [1:0]                       half_word_extra;
+reg         [2:0]                       half_word_extra;
 // dout value for first accessing
 reg         [31:0]                      dout_f;
 
 
 // use to store op2
 reg         [7:0]                       src_data        [3:0];
-
+reg         [7:0]                       din_reg;
 wire        [7:0]                       din;
+assign din = din_reg;
 wire        [31:0]                      dout;
 reg                                     ram_en;
 reg                                     wea;
@@ -147,11 +149,14 @@ end
 // set loading cnt and half_word_extra read flag
 always @ (posedge clk) begin
     if(!rst) begin
-        if(ram_en) begin
-            if(load_cnt == 'd1) begin
+        if(ram_en && wea == 'd0) begin
+
+            if(load_cnt == 'd3) begin
+                raddr <= op1 + imm_data;
+
                 // read half word
                 if(op_mode2 == 'b010 || op_mode2 == 'b011) begin
-                    case (raddr[1:0]) 
+                    case (instant_addr[1:0]) 
                     // set extra loading flag for half_word loading
                     // half_word_extra is set as 2
                     'b11: begin
@@ -165,33 +170,104 @@ always @ (posedge clk) begin
                     endcase
                 end
                 
-                // read byte and read word
+                // read word
+                else if(op_mode2 == 'b100) begin
+                    case (instant_addr[1:0]) 
+                    // set extra loading flag for word loading
+                    // half_word_extra is set as different value
+                    'b00: begin
+                        load_cnt <= 'd1;
+                        half_word_extra <= 'd0;    
+                    end
+
+                    'b01: begin
+                        load_cnt <= 'd2;
+                        half_word_extra <= 'd3;
+                    end
+
+                    'b10: begin
+                        load_cnt <= 'd2;
+                        half_word_extra <= 'd4;
+                    end
+
+                    'b11: begin
+                        load_cnt <= 'd2;
+                        half_word_extra <= 'd5;
+                    end
+
+                    default: begin
+                        load_cnt <= load_cnt;
+                        half_word_extra <= half_word_extra;    
+                    end
+                    endcase
+                end
+
+                // read byte
+                else if (op_mode2 == 'b000 || op_mode2 == 'b001) begin
+                    load_cnt <= 'd1;
+                    half_word_extra <= 'd0;
+                end
+                
                 else begin
-                    load_cnt <= load_cnt - 'd1;
+                    load_cnt <= 'd0;
                     half_word_extra <= 'd0;    
                 end
             end
 
             else begin
                 if(load_cnt == 'd0) begin
-                    load_cnt <= 'd1;
+                    load_cnt <= 'd3;
+                    raddr <= raddr;
+                end
+                else if (half_word_extra > 'd0 && load_cnt == 'd2) begin
+                    load_cnt <= load_cnt - 'd1;
+
+                    // + 'd3 to move current reading to next memory body
+                    raddr <= raddr + 'd3;
                 end
                 else begin
                     load_cnt <= load_cnt - 'd1;
+                    raddr <= raddr;
                 end
 
                 half_word_extra <= half_word_extra;    
             end
         end
         else begin
-            load_cnt <= 'd1;
-            half_word_extra <= 'd0;    
+            load_cnt <= 'd3;
+            half_word_extra <= 'd0; 
+            raddr <= raddr;
         end
     end
 
     else begin
-        load_cnt <= 'd1;    
-        half_word_extra <= 'd0;    
+        load_cnt <= 'd3;    
+        half_word_extra <= 'd0;
+        raddr <= 'd0;    
+    end
+end
+
+
+// using instant_addr to help generate half_word_extra and load_cnt
+always @ (*) begin
+    if(!rst) begin
+        if(ram_en == 'd1 && wea == 'd0) begin
+            
+            if(load_cnt == 'd3) begin
+                instant_addr = op1 + imm_data;
+            end
+
+            else begin
+                instant_addr = 'd0;
+            end
+        end
+        else begin
+            instant_addr = 'd0;
+        end
+    end
+
+    else begin
+        instant_addr = 'd0;
     end
 end
 
@@ -213,6 +289,7 @@ always @ (posedge clk) begin
 end
 
 
+// choose data to output
 // read half word is complex for it's accessing times can vary in 1 to 2
 always @ (done) begin
     if(!rst) begin
@@ -241,7 +318,7 @@ always @ (done) begin
                 // raddr will self-add for two-times reading
                 'b00: begin
                     if(half_word_extra == 'd2) begin
-                        res = {{16{dout[7]}}, dout_f[31:24], dout[7:0]};
+                        res = {{16{dout[7]}}, dout[7:0], dout_f[31:24]};
                     end
                     else begin
                         res = {{16{dout[15]}}, dout[15:0]};
@@ -262,24 +339,37 @@ always @ (done) begin
 
             // read word
             'b100: begin
-                res = dout;
+                case (half_word_extra)
+                'd3: begin
+                    res = {dout[7:0], dout_f[31:8]};
+                end
+
+                'd4: begin
+                    res = {dout[15:0], dout_f[31:16]};
+                end
+
+                'd5: begin
+                    res = {dout[23:0], dout_f[31:24]};
+                end
+
+                default: begin
+                    res = dout;
+                end
+
+                endcase
             end
 
             // read byte unsigned
             'b001: begin
                 case (addr[1:0])
-                'b00: begin
-                    if(half_word_extra == 'd2) begin
-                        res = {16'b0, dout_f[31:24], dout[7:0]};
-                    end
-                    else begin
-                        res = {16'b0, dout[15:0]};
-                    end
-                end
+                'b00: 
+                    res = {24'b0, dout[7:0]};
                 'b01:
                     res = {24'b0, dout[15:8]};
                 'b10:
                     res = {24'b0, dout[23:16]};
+                'b11:
+                    res = {24'b0, dout[31:24]};
 
                 default: begin
                     res = res;
@@ -289,7 +379,27 @@ always @ (done) begin
 
             // read half word unsigned
             'b011: begin
-                res = {16'b0, dout[15:0]};
+               case (addr[1:0])
+                // raddr will self-add for two-times reading
+                'b00: begin
+                    if(half_word_extra == 'd2) begin
+                        res = {16'b0, dout[7:0], dout_f[31:24]};
+                    end
+                    else begin
+                        res = {16'b0, dout[15:0]};
+                    end
+                end
+
+                'b01:
+                    res = {16'b0, dout[23:8]};
+
+                'b10:
+                    res = {16'b0, dout[31:16]};
+                
+                default: begin
+                    res = res;
+                end
+                endcase
             end
 
             default: begin
@@ -312,11 +422,14 @@ end
 // handling bram dout when need extra half word loading
 always @ (*) begin
     if(!rst) begin
-        if(wea == 'd0 && half_word_extra == 'd2 && load_cnt == 'd2) begin
+        if(wea == 'd0 && half_word_extra >= 'd2 && load_cnt == 'd1) begin
             dout_f = dout;
         end
-        else begin
+        else if (wea == 'd0 && half_word_extra >= 'd2) begin
             dout_f = dout_f;
+        end
+        else begin
+            dout_f = 'd0;
         end
     end
 
@@ -326,34 +439,52 @@ always @ (*) begin
 end
 
 
-
-
-
-/* control accessing addr */
-// generate reading adddr
+// gengerate writing addr
 always @ (*) begin
     if(!rst) begin
-        if( wea == 'd0 && ram_en == 'd1) begin
-            // need half_word_extra loading
-            if(half_word_extra == 'd2) begin
-                if(load_cnt == 'd2) begin
-                    raddr = op1 + imm_data;
+        if(wea == 'd1 && ram_en == 'd1) begin
+            case (op_mode2)
+            // store byte
+            'b000: begin
+                waddr = op1 + imm_data;    
+            end
+
+            // store half word
+            'b010: begin
+                if(store_cnt == 'd2) begin
+                    waddr = op1 + imm_data;
                 end
-                else if (load_cnt == 'd1)begin
-                    raddr = raddr + 'd1;
+                else if (store_cnt == 'd1) begin
+                    waddr = waddr + 'd1;
                 end
                 else begin
-                    raddr = raddr;
+                    waddr = waddr;
                 end
             end
-            else begin
-                raddr = op1 + imm_data;
+
+            // store word
+            'b100: begin
+                if(store_cnt == 'd4) begin
+                    waddr = op1 + imm_data;
+                end
+                else if (store_cnt >= 'd1) begin
+                    waddr = waddr + 'd1;
+                end
+                else begin
+                    waddr = waddr;
+                end
             end
-        end
+
+            default: begin
+                waddr = waddr;
+            end
+
+            endcase
+        end    
     end
 
     else begin
-        raddr = 'd0;
+        waddr = 'd0;
     end
 end
 
@@ -371,6 +502,73 @@ always @ (*) begin
 
     else begin
         addr = 'd0;
+    end
+end
+
+
+
+
+
+/* generate writing data */
+// store incoming data 
+always @ (posedge clk) begin
+    if(!rst) begin
+        src_data[0] <= op2[7:0];
+        src_data[1] <= op2[15:8];
+        src_data[2] <= op2[23:16];
+        src_data[3] <= op2[31:24];
+    end
+
+    else begin
+        src_data[0] <= 'd0;
+        src_data[1] <= 'd0;
+        src_data[2] <= 'd0;
+        src_data[3] <= 'd0;
+    end
+end
+
+
+// choose writing data
+always @ (*) begin
+    if(!rst) begin
+        if( ram_en && wea ) begin
+            case (op_mode2)
+            'b100: begin
+                case (store_cnt)
+                'd4:
+                    din_reg = src_data[0];
+                'd3:
+                    din_reg = src_data[1];
+                'd2:
+                    din_reg = src_data[2];
+                'd1:
+                    din_reg = src_data[3];
+                default:
+                    din_reg = din_reg;
+                endcase
+            end
+
+            'b010: begin
+                case (store_cnt)
+                'd2:
+                    din_reg = src_data[0];
+                'd1:
+                    din_reg = src_data[1];
+                default:
+                    din_reg = din_reg;
+                endcase
+            end
+
+            'b000: begin
+                din_reg = src_data[0];
+            end
+
+            endcase
+        end
+    end
+
+    else begin
+        din_reg = 'd0;
     end
 end
 

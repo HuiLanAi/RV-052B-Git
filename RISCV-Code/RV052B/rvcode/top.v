@@ -40,38 +40,37 @@ reg		[31:0]			imm_data;
 initial begin
 	/*  */
 	op1 <= 32'h0000_0000;
-	op2 <= 32'hffff_ffff;
-	imm_data <= 32'h0000_0003;
+	op2 <= 32'h4321_abcd;
+	imm_data <= 32'h0000_0000;
 	use_part <= 'b01;
-	op_mode1 <= 'b00;
-	op_mode2 <= 'b010;
+	op_mode1 <= 'b01;
+	op_mode2 <= 'b100;
 	en = 0;
 	/*  */
 	rst <= 1'b1;
 	clk <= 1'b0;
 	#3;
+	/* clk 1 */
 	rst <= 1'b0;
 	en <= 'd1;
 	#2;
-	// use_part <= 'b10;
-	// en <= 'd1;
-	// op_mode2 <= 'b100;
-	// op1 <= 'd20;
+	/* clk 2 */
 	en <= 'd0;
 	#2;
-	// use_part <= 'b01;
-	// op2 <= 'd30;
-	// #2;
-	// en <= 'd0;
+	/* clk 3 */
 	en <= 'd0;
-	#4;
+	#2;
+	/* clk 4 */
 	// en <= 'd1;
 	// op_mode2 <= 'b100;
-	#2;
+	#10;
+	/* clk 6 */
 	en <= 'd1;
-	op_mode2 <= 'b100;
+	op_mode1 <= 'b00;
+	imm_data <= 'd2;
 	#2;
 	en <= 'd0;
+
 end
 
 

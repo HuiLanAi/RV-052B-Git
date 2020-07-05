@@ -3,23 +3,18 @@
 		"path": "$ROOTPATH$\\DATA_RAM.v",
 		"bookmarks": [
 			{
-				"line": 83,
+				"line": 85,
 				"column": 35,
 				"label": ""
 			},
 			{
-				"line": 145,
+				"line": 147,
 				"column": 67,
 				"label": ""
 			},
 			{
-				"line": 330,
-				"column": 28,
-				"label": ""
-			},
-			{
-				"line": 379,
-				"column": 66,
+				"line": 574,
+				"column": 0,
 				"label": ""
 			}
 		]
