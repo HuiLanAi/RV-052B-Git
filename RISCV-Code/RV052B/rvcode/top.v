@@ -39,11 +39,11 @@ reg		[31:0]			imm_data;
 
 initial begin
 	/*  */
-	op1 <= 32'h0000_0000;
-	op2 <= 32'h4321_abcd;
+	op1 <= 32'h9000_0000;
+	op2 <= 32'h0000_0002;
 	imm_data <= 32'h0000_0000;
 	use_part <= 'b01;
-	op_mode1 <= 'b01;
+	op_mode1 <= 'b00;
 	op_mode2 <= 'b100;
 	en = 0;
 	/*  */
@@ -66,8 +66,9 @@ initial begin
 	#10;
 	/* clk 6 */
 	en <= 'd1;
-	op_mode1 <= 'b00;
-	imm_data <= 'd2;
+	op_mode1 <= 'b10;
+	op_mode2 <= 'b100;
+	imm_data <= 'd3;
 	#2;
 	en <= 'd0;
 
@@ -82,7 +83,7 @@ end
 
 
 
-DATA_RAM ram(
+SHIFT shift(
 	.clk(clk),
 	.rst(rst),
 	.op1(op1),
