@@ -98,5 +98,13 @@ SHIFT shift(
 );
 
 
+addsub_no_u addsub_no_u_0(
+    .A                      (32'd1),
+    .B                      (32'd2),
+    .CLK                    (clk),
+    .ADD                    (1'd1),
+    .CE                     (1'd1)
+);
+
 
 endmodule
