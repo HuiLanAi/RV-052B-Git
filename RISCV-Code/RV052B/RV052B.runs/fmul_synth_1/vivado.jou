@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2018.1 (64-bit)
+# SW Build 2188600 on Wed Apr  4 18:40:38 MDT 2018
+# IP Build 2185939 on Wed Apr  4 20:55:05 MDT 2018
+# Start of session at: Tue Jul  7 00:43:18 2020
+# Process ID: 16908
+# Current directory: E:/CodeFactory/RV-052B-P/RV-052B-Git/RISCV-Code/RV052B/RV052B.runs/fmul_synth_1
+# Command line: vivado.exe -log fmul.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source fmul.tcl
+# Log file: E:/CodeFactory/RV-052B-P/RV-052B-Git/RISCV-Code/RV052B/RV052B.runs/fmul_synth_1/fmul.vds
+# Journal file: E:/CodeFactory/RV-052B-P/RV-052B-Git/RISCV-Code/RV052B/RV052B.runs/fmul_synth_1\vivado.jou
+#-----------------------------------------------------------
+source fmul.tcl -notrace

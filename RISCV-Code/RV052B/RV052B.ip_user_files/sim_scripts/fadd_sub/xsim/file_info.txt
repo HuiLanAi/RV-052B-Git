@@ -1,0 +1,1 @@
+fadd_sub.vhd,vhdl,xil_defaultlib,../../../../RV052B.srcs/sources_1/ip/fadd_sub/sim/fadd_sub.vhd,
